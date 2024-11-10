@@ -19,11 +19,15 @@ spring:
           uri: http://localhost:8090
           predicates:
             - Path=/api/products/**
+          filters:
+            - AuthenticationFilter
 
         - id: cart
           uri: http://localhost:8070
           predicates:
             - Path=/api/carts/**
+          filters:
+            - AuthenticationFilter
 
         - id: auth
           uri: http://localhost:8060
