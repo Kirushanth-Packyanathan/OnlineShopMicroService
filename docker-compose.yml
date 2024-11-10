@@ -1,0 +1,37 @@
+version: '4.3'
+
+services:
+  mysql:
+    container_name: mySQL_OnlineShop
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root  # Only set the root password here
+      MYSQL_DATABASE: online_shop  # Initial database name
+    volumes:
+      - mySQL_OnlineShop:/var/lib/mysql
+    ports:
+      - "3307:3306"  # Use host port 3307 to avoid conflicts with local MySQL
+    networks:
+      - onlineShop-net
+
+  mongodb:
+    image: mongo:7.0.5
+    container_name: mongodbOnlineShop
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: product-service
+    volumes:
+      - mongodbOnlineShop:/data/db  # Updated volume for MongoDB data persistence
+    ports:
+      - 27017:27017
+    networks:
+      - onlineShop-net
+
+networks:
+  onlineShop-net:
+    driver: bridge  # Optional; bridge is the default network driver
+
+volumes:
+  mongodbOnlineShop:
+  mySQL_OnlineShop:

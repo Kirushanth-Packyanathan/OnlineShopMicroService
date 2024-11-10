@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: auth
+
+  config:
+    import: optional:configserver:http://localhost:8888
+
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/online_shop
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update  # Ensure this is set to 'update' for automatic schema updates
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true  # Ensures that Eureka uses IP address instead of hostname
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka # Eureka server URL
+    fetch-registry: true  # Allow fetching the registry
+    register-with-eureka: true  # Register the service with Eureka
+
+server:
+  port: 8060  # The server port for this application
